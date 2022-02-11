@@ -24,7 +24,7 @@ function Bitbotbil () {
         bitbot.motor(BBMotor.Right, Kjør - Høyrejustering)
         bitbot.motor(BBMotor.Left, Kjør - Venstrejustering)
     } else {
-        bitbot.motor(BBMotor.Left, Stopp)
+        bitbot.motor(BBMotor.Both, Stopp)
     }
 }
 input.onButtonPressed(Button.AB, function () {
@@ -35,14 +35,14 @@ input.onButtonPressed(Button.AB, function () {
     }
 })
 radio.onReceivedValue(function (name, value) {
-    if (name == "H") {
-        Kjør = value
-    }
     if (name == "A") {
         AvPå_Bil = value
     }
+    if (name == "H") {
+        Kjør = value * -22.7
+    }
     if (name == "S") {
-        Justering = value
+        Justering = value * -22.7
     }
 })
 let Høyrejustering = 0
@@ -54,8 +54,7 @@ let AvPå = 0
 let Svinge = 0
 let Hastighet = 0
 let Stopp = 0
-let Radionummer = 1
-radio.setGroup(Radionummer)
+radio.setGroup(1)
 bitbot.ledRainbow()
 Stopp = 0
 basic.forever(function () {
